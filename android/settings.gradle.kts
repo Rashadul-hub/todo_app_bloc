@@ -24,3 +24,18 @@ plugins {
 }
 
 include(":app")
+
+gradle.beforeProject {
+    if (name == "isar_flutter_libs") {
+        afterEvaluate {
+            if (plugins.hasPlugin("com.android.library")) {
+                extensions.configure<com.android.build.gradle.LibraryExtension>("android") {
+                    namespace = "dev.isar.isar_flutter_libs"
+                    defaultConfig {
+                        manifestPlaceholders["package"] = ""
+                    }
+                }
+            }
+        }
+    }
+}
